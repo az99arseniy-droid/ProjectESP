@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>ByteBee Project | Хакерский мультитул</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #0a0f2a 0%, #0c122f 50%, #0a0a2a 100%);
+            color: #f0f3ff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* адаптивный хедер */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(8, 12, 35, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(100, 150, 255, 0.25);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .logo {
+            font-size: 1.9rem;
+            font-weight: 800;
+            background: linear-gradient(125deg, #b3e4ff, #7aa9ff);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+            text-shadow: 0 0 8px rgba(100, 150, 255, 0.3);
+            white-space: nowrap;
+        }
+
+        .nav-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
+        .nav-button {
+            background: rgba(20, 28, 55, 0.7);
+            border: none;
+            color: #e2e8ff;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 0.5rem 1.2rem;
+            border-radius: 60px;
+            transition: all 0.2s ease;
+            backdrop-filter: blur(4px);
+            letter-spacing: 0.3px;
+            white-space: nowrap;
+        }
+
+        .nav-button:hover {
+            background: rgba(70, 110, 220, 0.6);
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        .nav-button.active {
+            background: #3b6eff;
+            color: white;
+            box-shadow: 0 4px 12px rgba(59, 110, 255, 0.3);
+        }
+
+        /* основной контент */
+        .content {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 1.8rem 2rem 3rem;
+            width: 100%;
+        }
+
+        .project-title {
+            font-size: clamp(2.2rem, 8vw, 4rem);
+            text-align: center;
+            background: linear-gradient(125deg, #ffffff, #b0d4ff);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 12px rgba(59, 110, 255, 0.3);
+            margin-bottom: 2rem;
+            border-bottom: 2px dashed rgba(100, 150, 255, 0.3);
+            padding-bottom: 0.8rem;
+            display: inline-block;
+            width: auto;
+            letter-spacing: -0.02em;
+        }
+
+        .title-wrapper {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* карточки и секции */
+        .section {
+            background: rgba(15, 22, 45, 0.55);
+            backdrop-filter: blur(2px);
+            border-radius: 1.8rem;
+            padding: 1.5rem 1.8rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(70, 130, 255, 0.2);
+            transition: all 0.2s;
+        }
+
+.section-title {
+            font-size: clamp(1.5rem, 5vw, 1.9rem);
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+            color: #bbd9ff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            letter-spacing: -0.2px;
+        }
+
+        .section-title::before {
+            content: '▌';
+            color: #3b6eff;
+            font-size: 1.6rem;
+        }
+
+        .text-block {
+            color: rgba(235, 245, 255, 0.92);
+            line-height: 1.55;
+            font-size: clamp(1rem, 4vw, 1.1rem);
+            margin-bottom: 1rem;
+        }
+
+        .text-block ul, .section ul {
+            padding-left: 1.5rem;
+            margin: 0.8rem 0;
+        }
+
+        .text-block li {
+            margin: 0.5rem 0;
+        }
+
+        .github-link {
+            color: #7aaaff;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px solid rgba(122, 170, 255, 0.4);
+            transition: 0.2s;
+        }
+
+        .github-link:hover {
+            color: #b3d9ff;
+            border-bottom-color: #b3d9ff;
+        }
+
+        /* стили для сообщения "в разработке" */
+        .dev-message {
+            background: linear-gradient(115deg, rgba(25, 35, 70, 0.9), rgba(10, 15, 45, 0.95));
+            border-left: 6px solid #ffaa44;
+            border-radius: 1.2rem;
+            padding: 2rem 1.8rem;
+            text-align: center;
+            margin: 1rem 0;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            backdrop-filter: blur(8px);
+        }
+
+        .dev-icon {
+            font-size: 3rem;
+            margin-bottom: 0.8rem;
+            display: inline-block;
+        }
+
+        .dev-title {
+            font-size: clamp(1.5rem, 6vw, 2.1rem);
+            font-weight: 700;
+            color: #ffcf8a;
+            margin: 0.5rem 0;
+        }
+
+        .dev-text {
+            font-size: clamp(1rem, 4vw, 1.25rem);
+            color: #d9e6ff;
+            max-width: 550px;
+            margin: 0 auto;
+        }
+
+        .dev-sub {
+            margin-top: 1.2rem;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        /* адаптив для телефонов */
+        @media (max-width: 640px) {
+            .header {
+                padding: 0.6rem 1rem;
+                flex-direction: column;
+                align-items: stretch;
+                text-align: center;
+            }
+            .logo {
+                text-align: center;
+                white-space: normal;
+                font-size: 1.8rem;
+            }
+            .nav-buttons {
+                justify-content: center;
+                gap: 0.5rem;
+            }
+            .nav-button {
+                padding: 0.4rem 1rem;
+                font-size: 0.9rem;
+            }
+            .content {
+                padding: 1.2rem 1rem 2rem;
+            }
+            .section {
+                padding: 1.2rem 1.2rem;
+                border-radius: 1.4rem;
+            }
+            .section-title {
+                margin-bottom: 0.9rem;
+            }
+            .text-block {
+                font-size: 0.95rem;
+            }
+            .dev-message {
+                padding: 1.5rem 1rem;
+            }
+        }
+
+        /* для планшетов и десктопов */
+        @media (min-width: 1024px) {
+            .content {
+                padding: 2rem 2.5rem 3.5rem;
+            }
+            .section {
+                padding: 1.8rem 2.2rem;
+            }
+        }
+
+        /* стили для списков */
+        .feature-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .feature-list li {
+            padding-left: 1.3rem;
+            position: relative;
+            margin: 0.6rem 0;
+        }
+        .feature-list li::before {
+            content: "⚡";
+            position: absolute;
+            left: -0.2rem;
+            color: #5d8eff;
+        }
+
+.code-snippet {
+            background: #0b0e1a;
+            border-radius: 1rem;
+            padding: 1.2rem;
+            overflow-x: auto;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.8rem;
+            border: 1px solid #2a3a6a;
+            margin-top: 0.8rem;
+        }
+
+        hr {
+            border-color: rgba(100, 150, 255, 0.2);
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">⚡ ByteBee</div>
+        <div class="nav-buttons">
+            <button class="nav-button" data-section="home">Главная</button>
+            <button class="nav-button" data-section="project">Проект</button>
+            <button class="nav-button" data-section="code">Код</button>
+            <button class="nav-button" data-section="github">GitHub</button>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="title-wrapper">
+            <h1 class="project-title" id="main-title">ByteBee project</h1>
+        </div>
+        <div id="content-area"></div>
+    </div>
+
+    <script>
+        // Получаем все кнопки навигации
+        const navButtons = document.querySelectorAll('.nav-button');
+        const mainTitle = document.getElementById('main-title');
+        const contentArea = document.getElementById('content-area');
+
+        // Функция обновления активного класса
+        function setActiveButton(activeSection) {
+            navButtons.forEach(btn => {
+                const section = btn.getAttribute('data-section');
+                if (section === activeSection) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+        }
+
+        // Функция показа сообщения "в разработке" для раздела Код
+        function showDevelopmentMessage() {
+            mainTitle.classList.add('hidden');
+            contentArea.innerHTML = 
+                <div class="dev-message">
+                    <div class="dev-icon">🔧⚙️</div>
+                    <div class="dev-title">Данная функция сейчас в разработке</div>
+                    <div class="dev-text">
+                        Мы активно работаем над отображением кода и документации.<br>
+                        Скоро здесь появится полный исходник прошивки для ESP8266, схемы и инструкции.
+                    </div>
+                    <div class="dev-sub">
+                        Следите за обновлениями в репозитории GitHub!
+                    </div>
+                </div>
+                <div class="section" style="margin-top: 1rem;">
+                    <div class="section-title">📌 А пока можно изучить</div>
+                    <p class="text-block">✅ Архитектуру проекта в разделе "Проект"<br>
+                    ✅ Перейти в GitHub для превью кода<br>
+                    ✅ Ожидать полноценного релиза модуля "Код"</p>
+                </div>
+            ;
+        }
+
+        // Главная страница
+        function renderHome() {
+            mainTitle.classList.remove('hidden');
+            mainTitle.textContent = 'ByteBee project';
+            contentArea.innerHTML = `
+                <div style="text-align: center; margin-bottom: 1rem;">
+                    <p class="text-block" style="font-size: clamp(1.1rem, 5vw, 1.4rem); font-weight: 500;">🐝 Современный хакерский мультитул на ESP8266</p>
+                </div>
+                <div class="section">
+                    <h2 class="section-title">О проекте</h2>
+                    <p class="text-block">ByteBee — это открытый хакерский инструмент на базе микроконтроллера ESP8266. Компактный, мощный и расширяемый. Идеально подходит для тестирования Wi-Fi сетей, анализа безопасности и изучения протоколов беспроводной связи.</p>
+                    <p class="text-block">Минималистичный интерфейс с OLED-дисплеем, удобное управление двумя кнопками и богатый функционал делают ByteBee отличным выбором для энтузиастов кибербезопасности.</p>
+
+</div>
+                <div class="section">
+                    <h2 class="section-title">⚡ Ключевые возможности</h2>
+                    <ul class="feature-list text-block">
+                        <li>Сканирование Wi-Fi сетей и анализ уровня сигнала</li>
+                        <li>Тестирование безопасности (Deauth, Beacon Flood и др.)</li>
+                        <li>Работа с MAC-адресами и кастомными скриптами</li>
+                        <li>Обновление прошивки через OTA (по воздуху)</li>
+                        <li>Энергоэффективный режим сна</li>
+                        <li>Поддержка расширения через дополнительные модули</li>
+                    </ul>
+                </div>
+                <div class="section">
+                    <h2 class="section-title">🚀 Быстрый старт</h2>
+                    <p class="text-block">Для сборки потребуется ESP8266 (NodeMCU / Wemos D1 mini), OLED 0.96" I2C, две тактовые кнопки и корпус. Подробная инструкция и прошивка будут доступны в репозитории.</p>
+                </div>
+            ;
+        }
+
+        // Страница "Проект" — детальная информация
+        function renderProject() {
+            mainTitle.classList.add('hidden');
+            contentArea.innerHTML = 
+                <div class="section">
+                    <h2 class="section-title">Введение</h2>
+                    <p class="text-block">Хакерский мультитул на ESP8266 — компактное устройство для тестирования Wi-Fi, пентеста и образовательных задач. Сочетает в себе мощь чипа ESP8266, минималистичный OLED интерфейс и удобную навигацию.</p>
+                </div>
+                <div class="section">
+                    <h2 class="section-title">📟 Технические характеристики</h2>
+                    <ul class="text-block">
+                        <li><strong>Микроконтроллер:</strong> ESP8266 (ESP-12E/F)</li>
+                        <li><strong>Дисплей:</strong> OLED 0.96" 128x64 (I2C, SSD1306)</li>
+                        <li><strong>Управление:</strong> 2 кнопки (навигация / выбор)</li>
+                        <li><strong>Питание:</strong> USB Type-C или Li-Po аккумулятор (опционально)</li>
+                        <li><strong>Габариты:</strong> ультратонкий корпус, ~ 55x30x12 мм</li>
+                    </ul>
+                </div>
+                <div class="section">
+                    <h2 class="section-title">🎮 Интерфейс и управление</h2>
+                    <p class="text-block">OLED‑дисплей отображает меню, списки сетей и статус атак. Чёрный фон с белым текстом обеспечивает отличную читаемость даже при ярком свете.</p>
+                    <p class="text-block"><strong>🔘 Кнопка 1 (NAV / NEXT)</strong> — перемещение по пунктам меню.<br>
+                    <strong>🔘 Кнопка 2 (SELECT / OK)</strong> — подтверждение действия.<br>
+                    Долгое нажатие (hold) — возврат назад или вызов дополнительных опций.</p>
+                    <p class="text-block">Простая схема управления позволяет работать с устройством одной рукой, не отвлекаясь от основных задач.</p>
+                </div>
+                <div class="section">
+                    <h2 class="section-title">🧠 Встроенные возможности</h2>
+                    <ul class="text-block">
+                        <li>📡 Сканирование точек доступа (SSID, BSSID, RSSI, канал)</li>
+                        <li>🔐 Атака деавторификации (deauth) для тестирования защиты</li>
+                        <li>📊 Мониторинг пакетов и анализатор каналов</li>
+                        <li>🛠 Режим "Beacon flood" для нагрузочного тестирования</li>
+                        <li>📝 Логирование результатов на SPIFFS или передача по сериалу</li>
+                        <li>🔄 OTA обновления без проводов</li>
+                    </ul>
+                </div>
+                <div class="section">
+<h2 class="section-title">🔧 Планы развития</h2>
+                    <p class="text-block">Добавление поддержки дополнительных датчиков, создание веб-интерфейса для удалённого управления, улучшенная фильтрация сетей и интеграция с внешними утилитами.</p>
+                </div>
+            ;
+        }
+
+        // Страница GitHub
+        function renderGitHub() {
+            mainTitle.classList.add('hidden');
+            contentArea.innerHTML = 
+                <div class="section">
+                    <h2 class="section-title">🐙 GitHub репозиторий</h2>
+                    <p class="text-block">Исходный код, схемы подключения и документация доступны по ссылке:</p>
+                    <p class="text-block" style="font-size: 1.2rem; word-break: break-all;">
+                        🔗 <a class="github-link" href="https://github.com/Sh1k154-creator" target="_blank" rel="noopener noreferrer">github.com/Sh1k154-creator</a>
+                    </p>
+                    <p class="text-block">В репозитории представлены:</p>
+                    <ul class="text-block">
+                        <li>✅ Актуальная прошивка для ESP8266 (Arduino IDE / PlatformIO)</li>
+                        <li>✅ Схемы подключения и список компонентов</li>
+                        <li>✅ Инструкция по сборке и прошивке</li>
+                        <li>✅ Примеры кастомных скриптов для расширения функционала</li>
+                        <li>✅ Changelog и roadmap проекта</li>
+                    </ul>
+                    <hr>
+                    <p class="text-block">🌟 Если проект оказался полезным — поставьте звезду на GitHub. Это мотивирует развивать ByteBee дальше!</p>
+                </div>
+                <div class="section">
+                    <h2 class="section-title">🤝 Вклад в проект</h2>
+                    <p class="text-block">Приветствуются pull request'ы, идеи по улучшению и сообщения об ошибках. Вместе сделаем ByteBee мощнее.</p>
+                </div>
+            `;
+        }
+
+        // Обработчик нажатия на кнопки с проверкой на "Код"
+        function handleNavigation(sectionId) {
+            switch(sectionId) {
+                case 'home':
+                    renderHome();
+                    break;
+                case 'project':
+                    renderProject();
+                    break;
+                case 'code':
+                    // Показываем сообщение "в разработке"
+                    showDevelopmentMessage();
+                    break;
+                case 'github':
+                    renderGitHub();
+                    break;
+                default:
+                    renderHome();
+            }
+            setActiveButton(sectionId);
+        }
+
+        // Добавляем обработчики на кнопки
+        navButtons.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const section = btn.getAttribute('data-section');
+                if (section) {
+                    handleNavigation(section);
+                }
+            });
+        });
+
+        // Дополнительно: плавный скролл при кликах, улучшение touch-событий
+        // Убираем возможные баги при быстрых переключениях
+        window.addEventListener('load', () => {
+            // Начальная инициализация: показываем главную
+            handleNavigation('home');
+            
+            // фикс для мобильных: убираем залипание hover
+            if ('ontouchstart' in window) {
+                document.body.style.cursor = 'default';
+            }
+        });
+
+        // Защита от конфликтов с event.target при динамической вставке (все обработчики привязаны)
+        // Никаких конфликтов, активная кнопка подсвечивается корректно
+    </script>
+</body>
+</html>
